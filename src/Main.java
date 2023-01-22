@@ -1,7 +1,7 @@
 public class Main {
     public static void main(String[] args) {
 
-        Box box = new Box(1545256546.54);
+        Box box = new Box(156546.54);
 
         checkPrint (box.addPyramid(4.54, 5.84));
         checkPrint(box.addBall(54.25));

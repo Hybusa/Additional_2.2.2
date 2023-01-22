@@ -11,35 +11,18 @@ public class Box implements BallAddable, CylinderAddable, PyramidAddable {
 
     @Override
     public boolean addBall(double radius) {
-        if (listSum(stored) + ballVolume(radius) > this.volumeLeft)
-            return false;
-        else {
-            stored.add(ballVolume(radius));
-            this.volumeLeft -= ballVolume(radius);
-            return true;
-        }
+        return addShapeChecker(listSum(stored) + ballVolume(radius),ballVolume(radius));
     }
 
     @Override
     public boolean addCylinder(double radius, double height) {
-        if (listSum(stored) + cylinderVolume(radius, height) > this.volumeLeft)
-            return false;
-        else {
-            stored.add(cylinderVolume(radius, height));
-            this.volumeLeft -= cylinderVolume(radius, height);
-            return true;
-        }
+        return addShapeChecker(listSum(stored)
+                + cylinderVolume(radius, height),cylinderVolume(radius, height));
     }
 
     @Override
     public boolean addPyramid(double s, double h) {
-        if (listSum(stored) + pyramidVolume(s, h) > this.volumeLeft)
-            return false;
-        else {
-            stored.add(pyramidVolume(s, h));
-            this.volumeLeft -= pyramidVolume(s, h);
-            return true;
-        }
+        return addShapeChecker(listSum(stored) + pyramidVolume(s, h),pyramidVolume(s, h));
     }
 
     private static double listSum(ArrayList<Double> arrayList) {
@@ -60,5 +43,15 @@ public class Box implements BallAddable, CylinderAddable, PyramidAddable {
 
     private static double pyramidVolume(double s, double h) {
         return (s * h / 3);
+    }
+
+    private boolean addShapeChecker(double sumArrayAndNewShape, double shapeVolume) {
+        if (sumArrayAndNewShape > this.volumeLeft)
+            return false;
+        else {
+            stored.add(shapeVolume);
+            this.volumeLeft -= shapeVolume;
+            return true;
+        }
     }
 }
